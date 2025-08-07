@@ -1,0 +1,26 @@
+{
+  "browserless": {
+    "host": "172.22.0.1",
+    "port": 3000,
+    "protocol": "http",
+    "token": null,
+    "timeout": 30000,
+    "concurrent": 5
+  },
+  "workingFeatures": [
+    "content",
+    "pdf"
+  ],
+  "testResults": {
+    "content": true,
+    "pdf": true,
+    "function": false,
+    "export": false,
+    "performance": false
+  },
+  "notes": [
+    "Screenshot endpoint times out - may need more resources",
+    "Function endpoint returns 400 - may need different format",
+    "Export and Performance endpoints return 404 - not available in this instance"
+  ]
+} 

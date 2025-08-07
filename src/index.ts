@@ -21,11 +21,6 @@ class BrowserlessMCPServer {
       {
         name: 'browserless-mcp',
         version: '1.0.0',
-      },
-      {
-        capabilities: {
-          tools: {},
-        },
       }
     );
 
@@ -305,7 +300,7 @@ class BrowserlessMCPServer {
           }
 
           case 'generate_pdf': {
-            const result = await this.client!.generatePdf(args);
+            const result = await this.client!.generatePdf(args as any);
             if (result.success && result.data) {
               return {
                 content: [

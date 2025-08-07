@@ -19,7 +19,7 @@ docker run \
   -e "CONCURRENT=10" \
   -e "TOKEN=6R0W53R135510" \
   ghcr.io/browserless/chromium
-```
+``` 
 
 Browserless is designed to always require a token. If you don't pass a TOKEN env variable, a randomly generated token will be set.
 
