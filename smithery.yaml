@@ -1,0 +1,462 @@
+name: browserless-mcp
+version: 1.0.0
+description: Model Context Protocol server for Browserless.io browser automation
+author: Lizzard Solutions
+license: MIT
+repository: https://github.com/Lizzard-Solutions/browserless-mcp
+keywords:
+  - mcp
+  - browserless
+  - puppeteer
+  - playwright
+  - browser-automation
+  - web-scraping
+  - pdf-generation
+  - screenshots
+
+# MCP Server Configuration
+mcp:
+  name: browserless-mcp
+  version: 1.0.0
+  description: Comprehensive browser automation through Browserless.io
+  capabilities:
+    tools: {}
+  
+  # Tool definitions
+  tools:
+    - name: initialize_browserless
+      description: Initialize connection to Browserless instance
+      inputSchema:
+        type: object
+        properties:
+          host:
+            type: string
+            default: localhost
+            description: Browserless host address
+          port:
+            type: number
+            default: 3000
+            description: Browserless port
+          token:
+            type: string
+            description: Authentication token (required)
+          protocol:
+            type: string
+            enum: [http, https, ws, wss]
+            default: http
+            description: Connection protocol
+          timeout:
+            type: number
+            default: 30000
+            description: Request timeout in milliseconds
+          concurrent:
+            type: number
+            default: 5
+            description: Maximum concurrent sessions
+        required: [token]
+
+    - name: generate_pdf
+      description: Generate PDF from URL or HTML content with custom styling
+      inputSchema:
+        type: object
+        properties:
+          url:
+            type: string
+            description: URL to convert to PDF
+          html:
+            type: string
+            description: HTML content to convert to PDF
+          options:
+            type: object
+            properties:
+              displayHeaderFooter:
+                type: boolean
+                description: Display header and footer
+              printBackground:
+                type: boolean
+                description: Print background graphics
+              format:
+                type: string
+                description: Paper format (A4, Letter, etc.)
+              landscape:
+                type: boolean
+                description: Landscape orientation
+              margin:
+                type: object
+                properties:
+                  top:
+                    type: string
+                    description: Top margin (e.g., "20mm")
+                  bottom:
+                    type: string
+                    description: Bottom margin
+                  left:
+                    type: string
+                    description: Left margin
+                  right:
+                    type: string
+                    description: Right margin
+        required: [url]
+
+    - name: take_screenshot
+      description: Capture screenshots of web pages with various options
+      inputSchema:
+        type: object
+        properties:
+          url:
+            type: string
+            description: URL to screenshot
+          options:
+            type: object
+            properties:
+              type:
+                type: string
+                enum: [png, jpeg, webp]
+                description: Image format
+              quality:
+                type: number
+                description: Image quality (1-100)
+              fullPage:
+                type: boolean
+                description: Capture full page
+              omitBackground:
+                type: boolean
+                description: Omit background
+              clip:
+                type: object
+                properties:
+                  x:
+                    type: number
+                    description: X coordinate
+                  y:
+                    type: number
+                    description: Y coordinate
+                  width:
+                    type: number
+                    description: Width
+                  height:
+                    type: number
+                    description: Height
+        required: [url]
+
+    - name: get_content
+      description: Extract rendered HTML content after JavaScript execution
+      inputSchema:
+        type: object
+        properties:
+          url:
+            type: string
+            description: URL to extract content from
+          waitForSelector:
+            type: object
+            properties:
+              selector:
+                type: string
+                description: CSS selector to wait for
+              timeout:
+                type: number
+                description: Timeout in milliseconds
+          waitForFunction:
+            type: object
+            properties:
+              fn:
+                type: string
+                description: JavaScript function to wait for
+              timeout:
+                type: number
+                description: Timeout in milliseconds
+        required: [url]
+
+    - name: execute_function
+      description: Execute custom JavaScript code in browser context
+      inputSchema:
+        type: object
+        properties:
+          code:
+            type: string
+            description: JavaScript code to execute (ES module format)
+          context:
+            type: object
+            description: Additional context data
+        required: [code]
+
+    - name: download_files
+      description: Handle file downloads and programmatic file creation
+      inputSchema:
+        type: object
+        properties:
+          code:
+            type: string
+            description: JavaScript code to trigger downloads
+          context:
+            type: object
+            description: Additional context data
+        required: [code]
+
+    - name: export_page
+      description: Export webpage with all resources
+      inputSchema:
+        type: object
+        properties:
+          url:
+            type: string
+            description: URL to export
+          headers:
+            type: object
+            description: Custom headers
+          bestAttempt:
+            type: boolean
+            description: Best effort export
+        required: [url]
+
+    - name: run_performance_audit
+      description: Run Lighthouse performance audit
+      inputSchema:
+        type: object
+        properties:
+          url:
+            type: string
+            description: URL to audit
+          config:
+            type: object
+            properties:
+              extends:
+                type: string
+                description: Lighthouse config to extend
+              settings:
+                type: object
+                description: Lighthouse settings
+        required: [url]
+
+    - name: unblock
+      description: Bypass bot detection and anti-scraping measures
+      inputSchema:
+        type: object
+        properties:
+          url:
+            type: string
+            description: URL to unblock
+          content:
+            type: boolean
+            description: Return page content
+          screenshot:
+            type: boolean
+            description: Return screenshot
+          stealth:
+            type: boolean
+            description: Enable stealth mode
+          blockAds:
+            type: boolean
+            description: Block advertisements
+          headers:
+            type: object
+            description: Custom headers
+        required: [url]
+
+    - name: execute_browserql
+      description: Execute BrowserQL GraphQL queries for advanced automation
+      inputSchema:
+        type: object
+        properties:
+          query:
+            type: string
+            description: GraphQL query string
+          variables:
+            type: object
+            description: Query variables
+        required: [query]
+
+    - name: create_websocket_connection
+      description: Create WebSocket connection for Puppeteer/Playwright
+      inputSchema:
+        type: object
+        properties:
+          browser:
+            type: string
+            enum: [chromium, firefox, webkit]
+            description: Browser type
+          library:
+            type: string
+            enum: [puppeteer, playwright]
+            description: Automation library
+          stealth:
+            type: boolean
+            description: Enable stealth mode
+          blockAds:
+            type: boolean
+            description: Block advertisements
+          viewport:
+            type: object
+            properties:
+              width:
+                type: number
+                description: Viewport width
+              height:
+                type: number
+                description: Viewport height
+              deviceScaleFactor:
+                type: number
+                description: Device scale factor
+              isMobile:
+                type: boolean
+                description: Mobile emulation
+              hasTouch:
+                type: boolean
+                description: Touch emulation
+          userAgent:
+            type: string
+            description: Custom user agent
+          extraHTTPHeaders:
+            type: object
+            description: Additional HTTP headers
+
+    - name: get_health
+      description: Get health status of Browserless instance
+      inputSchema:
+        type: object
+        properties: {}
+
+    - name: get_sessions
+      description: Get active browser sessions
+      inputSchema:
+        type: object
+        properties: {}
+
+    - name: get_config
+      description: Get current configuration
+      inputSchema:
+        type: object
+        properties: {}
+
+    - name: get_metrics
+      description: Get performance metrics
+      inputSchema:
+        type: object
+        properties: {}
+
+# Build Configuration
+build:
+  entrypoint: dist/index.js
+  dependencies:
+    - "@modelcontextprotocol/sdk"
+    - "puppeteer"
+    - "playwright"
+    - "axios"
+    - "ws"
+    - "zod"
+    - "dotenv"
+
+# Documentation
+documentation:
+  readme: README.md
+  api_reference: ref/browserless_api_reference.md
+  examples:
+    - name: Basic PDF Generation
+      description: Generate PDF from a web page
+      code: |
+        {
+          "name": "generate_pdf",
+          "arguments": {
+            "url": "https://example.com",
+            "options": {
+              "format": "A4",
+              "printBackground": true
+            }
+          }
+        }
+    
+    - name: Screenshot Capture
+      description: Take a full-page screenshot
+      code: |
+        {
+          "name": "take_screenshot",
+          "arguments": {
+            "url": "https://example.com",
+            "options": {
+              "type": "png",
+              "fullPage": true
+            }
+          }
+        }
+    
+    - name: Content Extraction
+      description: Extract content with waiting
+      code: |
+        {
+          "name": "get_content",
+          "arguments": {
+            "url": "https://example.com",
+            "waitForSelector": {
+              "selector": "#content",
+              "timeout": 5000
+            }
+          }
+        }
+    
+    - name: Custom Function
+      description: Execute custom JavaScript
+      code: |
+        {
+          "name": "execute_function",
+          "arguments": {
+            "code": "export default async function ({ page }) { await page.goto('https://example.com'); const title = await page.title(); return { data: { title }, type: 'application/json' }; }"
+          }
+        }
+
+# Metadata
+metadata:
+  category: Browser Automation
+  tags:
+    - web-scraping
+    - pdf-generation
+    - screenshots
+    - browser-automation
+    - puppeteer
+    - playwright
+    - lighthouse
+    - performance
+    - anti-detection
+    - graphql
+    - websocket
+  
+  features:
+    - PDF generation with custom styling
+    - Screenshot capture (PNG, JPEG, WebP)
+    - Content extraction with JavaScript execution
+    - Custom function execution in browser context
+    - File download handling
+    - Page export with resources
+    - Lighthouse performance audits
+    - Bot detection bypass
+    - BrowserQL GraphQL queries
+    - WebSocket connections for Puppeteer/Playwright
+    - Health monitoring and metrics
+    - Session management
+  
+  use_cases:
+    - Web scraping and data extraction
+    - Automated testing and QA
+    - PDF report generation
+    - Screenshot capture for documentation
+    - Performance monitoring
+    - Content archiving
+    - Form automation
+    - E-commerce monitoring
+    - Social media automation
+    - Compliance reporting
+
+# Publishing
+publish:
+  npm:
+    package_name: "@lizzard-solutions/browserless-mcp"
+    access: public
+  
+  github:
+    repository: Lizzard-Solutions/browserless-mcp
+    releases: true
+  
+  docker:
+    image_name: lizzard-solutions/browserless-mcp
+    platforms:
+      - linux/amd64
+      - linux/arm64 
