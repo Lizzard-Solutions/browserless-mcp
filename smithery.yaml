@@ -177,6 +177,7 @@ mcp:
             description: JavaScript code to execute (ES module format)
           context:
             type: object
+            properties: {}
             description: Additional context data
         required: [code]
 
@@ -190,6 +191,7 @@ mcp:
             description: JavaScript code to trigger downloads
           context:
             type: object
+            properties: {}
             description: Additional context data
         required: [code]
 
@@ -203,6 +205,7 @@ mcp:
             description: URL to export
           headers:
             type: object
+            properties: {}
             description: Custom headers
           bestAttempt:
             type: boolean
@@ -225,6 +228,7 @@ mcp:
                 description: Lighthouse config to extend
               settings:
                 type: object
+                properties: {}
                 description: Lighthouse settings
         required: [url]
 
@@ -250,6 +254,7 @@ mcp:
             description: Block advertisements
           headers:
             type: object
+            properties: {}
             description: Custom headers
         required: [url]
 
@@ -263,6 +268,7 @@ mcp:
             description: GraphQL query string
           variables:
             type: object
+            properties: {}
             description: Query variables
         required: [query]
 
@@ -308,6 +314,7 @@ mcp:
             description: Custom user agent
           extraHTTPHeaders:
             type: object
+            properties: {}
             description: Additional HTTP headers
 
     - name: get_health

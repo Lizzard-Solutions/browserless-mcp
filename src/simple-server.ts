@@ -89,9 +89,10 @@ class SimpleBrowserlessMCPServer {
       try {
         switch (name) {
           case 'get_content': {
+            if (!args?.url) throw new Error('URL is required');
             const response = await axios.post(`${this.browserlessUrl}/content`, {
-              url: args?.url,
-              ...(args?.waitForSelector && { waitForSelector: args.waitForSelector }),
+              url: args.url,
+              ...(args.waitForSelector ? { waitForSelector: args.waitForSelector } : {}),
             }, { timeout: 15000 });
 
             return {
@@ -109,6 +110,7 @@ class SimpleBrowserlessMCPServer {
           }
 
           case 'generate_pdf': {
+            if (!args?.url) throw new Error('URL is required');
             const response = await axios.post(`${this.browserlessUrl}/pdf`, {
               url: args.url,
               options: args.options || {},
@@ -152,7 +154,7 @@ class SimpleBrowserlessMCPServer {
                 content: [
                   {
                     type: 'text',
-                    text: `❌ Connection failed: ${error.message}`,
+                    text: `❌ Connection failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
                   },
                 ],
               };

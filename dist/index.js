@@ -13,10 +13,6 @@ class BrowserlessMCPServer {
         this.server = new Server({
             name: 'browserless-mcp',
             version: '1.0.0',
-        }, {
-            capabilities: {
-                tools: {},
-            },
         });
         this.setupToolHandlers();
     }
@@ -310,6 +306,8 @@ class BrowserlessMCPServer {
                         }
                     }
                     case 'take_screenshot': {
+                        if (!args)
+                            throw new Error('Arguments are required');
                         const result = await this.client.takeScreenshot(args);
                         if (result.success && result.data) {
                             return {
@@ -331,6 +329,8 @@ class BrowserlessMCPServer {
                         }
                     }
                     case 'get_content': {
+                        if (!args)
+                            throw new Error('Arguments are required');
                         const result = await this.client.getContent(args);
                         if (result.success && result.data) {
                             return {
@@ -355,6 +355,8 @@ class BrowserlessMCPServer {
                         }
                     }
                     case 'execute_function': {
+                        if (!args)
+                            throw new Error('Arguments are required');
                         const result = await this.client.executeFunction(args);
                         if (result.success && result.data) {
                             return {
@@ -375,6 +377,8 @@ class BrowserlessMCPServer {
                         }
                     }
                     case 'download_files': {
+                        if (!args)
+                            throw new Error('Arguments are required');
                         const result = await this.client.downloadFiles(args);
                         if (result.success && result.data) {
                             const content = [
@@ -397,6 +401,8 @@ class BrowserlessMCPServer {
                         }
                     }
                     case 'export_page': {
+                        if (!args)
+                            throw new Error('Arguments are required');
                         const result = await this.client.exportPage(args);
                         if (result.success && result.data) {
                             return {
@@ -417,6 +423,8 @@ class BrowserlessMCPServer {
                         }
                     }
                     case 'run_performance_audit': {
+                        if (!args)
+                            throw new Error('Arguments are required');
                         const result = await this.client.runPerformanceAudit(args);
                         if (result.success && result.data) {
                             return {
@@ -437,6 +445,8 @@ class BrowserlessMCPServer {
                         }
                     }
                     case 'unblock': {
+                        if (!args)
+                            throw new Error('Arguments are required');
                         const result = await this.client.unblock(args);
                         if (result.success && result.data) {
                             const content = [
@@ -465,6 +475,8 @@ class BrowserlessMCPServer {
                         }
                     }
                     case 'execute_browserql': {
+                        if (!args)
+                            throw new Error('Arguments are required');
                         const result = await this.client.executeBrowserQL(args);
                         if (result.success && result.data) {
                             return {
@@ -485,6 +497,8 @@ class BrowserlessMCPServer {
                         }
                     }
                     case 'create_websocket_connection': {
+                        if (!args)
+                            throw new Error('Arguments are required');
                         const result = await this.client.createWebSocketConnection(args);
                         if (result.success && result.data) {
                             return {

@@ -321,7 +321,8 @@ class BrowserlessMCPServer {
           }
 
           case 'take_screenshot': {
-            const result = await this.client!.takeScreenshot(args);
+            if (!args) throw new Error('Arguments are required');
+            const result = await this.client!.takeScreenshot(args as any);
             if (result.success && result.data) {
               return {
                 content: [
@@ -342,7 +343,8 @@ class BrowserlessMCPServer {
           }
 
           case 'get_content': {
-            const result = await this.client!.getContent(args);
+            if (!args) throw new Error('Arguments are required');
+            const result = await this.client!.getContent(args as any);
             if (result.success && result.data) {
               return {
                 content: [
@@ -366,7 +368,8 @@ class BrowserlessMCPServer {
           }
 
           case 'execute_function': {
-            const result = await this.client!.executeFunction(args);
+            if (!args) throw new Error('Arguments are required');
+            const result = await this.client!.executeFunction(args as any);
             if (result.success && result.data) {
               return {
                 content: [
@@ -386,7 +389,8 @@ class BrowserlessMCPServer {
           }
 
           case 'download_files': {
-            const result = await this.client!.downloadFiles(args);
+            if (!args) throw new Error('Arguments are required');
+            const result = await this.client!.downloadFiles(args as any);
             if (result.success && result.data) {
               const content = [
                 {
@@ -400,7 +404,7 @@ class BrowserlessMCPServer {
                   type: 'binary',
                   mimeType: file.type,
                   data: file.data.toString('base64'),
-                });
+                } as any);
               }
 
               return { content };
@@ -410,7 +414,8 @@ class BrowserlessMCPServer {
           }
 
           case 'export_page': {
-            const result = await this.client!.exportPage(args);
+            if (!args) throw new Error('Arguments are required');
+            const result = await this.client!.exportPage(args as any);
             if (result.success && result.data) {
               return {
                 content: [
@@ -430,7 +435,8 @@ class BrowserlessMCPServer {
           }
 
           case 'run_performance_audit': {
-            const result = await this.client!.runPerformanceAudit(args);
+            if (!args) throw new Error('Arguments are required');
+            const result = await this.client!.runPerformanceAudit(args as any);
             if (result.success && result.data) {
               return {
                 content: [
@@ -450,7 +456,8 @@ class BrowserlessMCPServer {
           }
 
           case 'unblock': {
-            const result = await this.client!.unblock(args);
+            if (!args) throw new Error('Arguments are required');
+            const result = await this.client!.unblock(args as any);
             if (result.success && result.data) {
               const content = [
                 {
@@ -471,7 +478,7 @@ class BrowserlessMCPServer {
                   type: 'binary',
                   mimeType: 'image/png',
                   data: result.data.screenshot.toString('base64'),
-                });
+                } as any);
               }
 
               return { content };
@@ -481,7 +488,8 @@ class BrowserlessMCPServer {
           }
 
           case 'execute_browserql': {
-            const result = await this.client!.executeBrowserQL(args);
+            if (!args) throw new Error('Arguments are required');
+            const result = await this.client!.executeBrowserQL(args as any);
             if (result.success && result.data) {
               return {
                 content: [
@@ -501,7 +509,8 @@ class BrowserlessMCPServer {
           }
 
           case 'create_websocket_connection': {
-            const result = await this.client!.createWebSocketConnection(args);
+            if (!args) throw new Error('Arguments are required');
+            const result = await this.client!.createWebSocketConnection(args as any);
             if (result.success && result.data) {
               return {
                 content: [
