@@ -2,6 +2,10 @@
 
 A Model Context Protocol (MCP) server for Browserless.io browser automation. This server provides a comprehensive interface to Browserless's powerful browser automation capabilities through MCP tools.
 
+<a href="https://glama.ai/mcp/servers/@Lizzard-Solutions/browserless-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@Lizzard-Solutions/browserless-mcp/badge" alt="Browserless Server MCP server" />
+</a>
+
 ## Features
 
 - **PDF Generation**: Convert web pages or HTML content to PDF with custom styling
@@ -418,4 +422,4 @@ For issues and questions:
 
 - **GitHub**: https://github.com/Lizzard-Solutions/browserless-mcp
 - **Issues**: https://github.com/Lizzard-Solutions/browserless-mcp/issues
-- **Discussions**: https://github.com/Lizzard-Solutions/browserless-mcp/discussions 
+- **Discussions**: https://github.com/Lizzard-Solutions/browserless-mcp/discussions
